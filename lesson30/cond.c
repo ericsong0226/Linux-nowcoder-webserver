@@ -15,7 +15,7 @@
         - 唤醒所有的等待的线程
 */
 /*
-    生产者消费者模型（粗略的版本）
+    生产者消费者模型
 */
 #include <stdio.h>
 #include <pthread.h>
