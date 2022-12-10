@@ -18,7 +18,7 @@ int main() {
     // 2.连接服务器端
     struct sockaddr_in serveraddr;
     serveraddr.sin_family = AF_INET;
-    inet_pton(AF_INET, "192.168.193.128", &serveraddr.sin_addr.s_addr);
+    inet_pton(AF_INET, "192.168.179.130", &serveraddr.sin_addr.s_addr);
     serveraddr.sin_port = htons(9999);
     int ret = connect(fd, (struct sockaddr *)&serveraddr, sizeof(serveraddr));
 

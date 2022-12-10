@@ -23,7 +23,7 @@ int main() {
     saddr.sin_addr.s_addr = INADDR_ANY;  // 0.0.0.0
     saddr.sin_port = htons(9999);
     int ret = bind(lfd, (struct sockaddr *)&saddr, sizeof(saddr));
-    
+
     if (ret == -1) {
         perror("bind");
         exit(-1);
