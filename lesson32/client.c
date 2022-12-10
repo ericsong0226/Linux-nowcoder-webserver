@@ -27,26 +27,30 @@ int main() {
         exit(-1);
     }
 
-    // 3.通信
-    char * data = "hello, i am client";
-    // 给客户端发送数据
-    write(fd, data, strlen(data));
-
     char recvBuf[1024] = {0};
-    int len = read(fd, recvBuf, sizeof(recvBuf));
-    if (len == -1) {
-        perror("read");
-        exit(-1);
-    } else if (len > 0) {
-        printf("recv server data :%s\n", recvBuf);
-    } else if (len == 0) {
-        // 表示客户端断开连接
-        printf("server closed...");
+    // 3.通信
+    while (1) {
+        char * data = "hello, i am client";
+        // 给服务器端发送数据
+        write(fd, data, strlen(data));
+
+        sleep(1);
+
+        int len = read(fd, recvBuf, sizeof(recvBuf));
+        if (len == -1) {
+            perror("read");
+            exit(-1);
+        } else if (len > 0) {
+            printf("recv server data :%s\n", recvBuf);
+        } else if (len == 0) {
+            // 表示服务器端断开连接
+            printf("server closed...\n");
+            break;
+        }
     }
 
     // 关闭连接
     close(fd);
-
 
     return 0;
 }

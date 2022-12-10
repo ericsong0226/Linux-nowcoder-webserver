@@ -53,22 +53,25 @@ int main() {
     printf("client ip is %s, port is %d\n", clientIP, clientPort);
 
     // 5.通信
-    // 获取客户端的数据
     char recvBuf[1024] = {0};
-    int num = read(cfd, recvBuf, sizeof(recvBuf));
-    if (num == -1) {
-        perror("read");
-        exit(-1);
-    } else if (num > 0) {
-        printf("recv client data :%s\n", recvBuf);
-    } else if (num == 0) {
-        // 表示客户端断开连接
-        printf("client closed...");
-    }
+    while (1) {
+        // 获取客户端的数据
+        int num = read(cfd, recvBuf, sizeof(recvBuf));
+        if (num == -1) {
+            perror("read");
+            exit(-1);
+        } else if (num > 0) {
+            printf("recv client data :%s\n", recvBuf);
+        } else if (num == 0) {
+            // 表示客户端断开连接
+            printf("client closed...\n");
+            break;
+        }
 
-    char * data = "hello, i am server";
-    // 给客户端发送数据
-    write(cfd, data, strlen(data));
+        char * data = "hello, i am server";
+        // 给客户端发送数据
+        write(cfd, data, strlen(data));
+    }
 
     // 关闭文件描述符
     close(cfd);
