@@ -56,6 +56,7 @@ int main() {
     char recvBuf[1024] = {0};
     while (1) {
         // 获取客户端的数据
+        memset(recvBuf, 0, 1024);
         int num = read(cfd, recvBuf, sizeof(recvBuf));
         if (num == -1) {
             perror("read");
@@ -68,7 +69,14 @@ int main() {
             break;
         }
 
-        char * data = "hello, i am server";
+        // char * data = "hello, i am server";
+        // char * data = recvBuf;  // 改为回射服务器，将客户端发来的数据，给发送回去
+        // 改为客户端发送键盘输入的数据
+        char data[1024];
+        memset(data, 0, 1024);
+        printf("请输入发送数据：\n");
+        scanf("%s", data);
+
         // 给客户端发送数据
         write(cfd, data, strlen(data));
     }

@@ -36,6 +36,7 @@ int main() {
 
         sleep(1);
 
+        memset(recvBuf, 0, 1024);
         int len = read(fd, recvBuf, sizeof(recvBuf));
         if (len == -1) {
             perror("read");
