@@ -35,8 +35,6 @@ int main() {
         // 给服务器端发送数据
         write(fd, recvBuf, strlen(recvBuf) + 1);
 
-        sleep(1);
-
         memset(recvBuf, 0, 1024);
         int len = read(fd, recvBuf, sizeof(recvBuf));
         if (len == -1) {
@@ -49,6 +47,8 @@ int main() {
             printf("server closed...\n");
             break;
         }
+
+        sleep(1);
     }
 
     // 关闭连接

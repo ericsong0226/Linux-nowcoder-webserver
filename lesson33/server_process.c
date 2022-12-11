@@ -93,8 +93,9 @@ int main() {
                     exit(-1);
                 } else if (len > 0) {
                     printf("recv client : %s\n", recvBuf);
-                } else {
+                } else if (len == 0) {
                     printf("client closed...\n");
+                    break;
                 }
 
                 write(cfd, recvBuf, strlen(recvBuf) + 1);
