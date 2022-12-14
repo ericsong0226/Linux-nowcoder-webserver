@@ -43,7 +43,8 @@ int main() {
             printf("服务器已经断开连接...\n");
             break;
         }
-        sleep(1);
+        // sleep(1);
+        usleep(1000);
     }
 
     close(fd);
