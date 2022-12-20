@@ -43,7 +43,7 @@ private:
 };
 
 template<typename T>
-threadpool<T>::threadpool(int thread_number = 8, int max_requests = 10000) :
+threadpool<T>::threadpool(int thread_number, int max_requests) :
     m_thread_number(thread_number), m_max_requests(max_requests),
     m_stop(false), m_threads(NULL) {
 
@@ -65,7 +65,7 @@ threadpool<T>::threadpool(int thread_number = 8, int max_requests = 10000) :
                 throw std::exception();
             }
 
-            if (pthread_detach(m_thread[i])) {
+            if (pthread_detach(m_threads[i])) {
                 delete[] m_threads;
                 throw std::exception();
             }
