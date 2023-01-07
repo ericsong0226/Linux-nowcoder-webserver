@@ -1,0 +1,5 @@
+app:*.o
+	gcc *.o -o app
+
+*.o:*.c
+	gcc -c *.c -o *.o
