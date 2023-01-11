@@ -40,11 +40,11 @@ int main() {
     }
 
     // 设置分离后,对分离的子线程进行连接 pthread_join()
-    ret = pthread_join(tid, NULL);
-    if (ret != 0) {
-        char * errstr = strerror(ret);
-        printf("error3 : %s\n", errstr);
-    }
+    // ret = pthread_join(tid, NULL);
+    // if (ret != 0) {
+    //     char * errstr = strerror(ret);
+    //     printf("error3 : %s\n", errstr);
+    // }
 
     pthread_exit(NULL);
 
