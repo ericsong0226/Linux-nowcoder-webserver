@@ -16,5 +16,17 @@ int main () {
     unsigned short b = htons(a);
     printf("b = %x\n", b);
 
+    printf("================================\n");
+
+    char buf[4] = {192, 168, 1, 100};
+    int num = *(int *)buf;
+    int sum = htonl(num);
+
+    unsigned char *p = (char *)&sum;
+
+    printf("%d %d %d %d\n", *p, *(p + 1), *(p + 2), *(p + 3));
+
+    printf("==================================\n");
+
     return 0;
 }
