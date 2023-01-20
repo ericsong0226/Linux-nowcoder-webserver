@@ -28,5 +28,14 @@ int main () {
 
     printf("==================================\n");
 
+    // ntohl
+    unsigned char buf1[4] = {1, 1, 168, 192};
+    int num1 = *(int *)buf1;
+    int sum1 = ntohl(num1);
+    unsigned char * p1 = (unsigned char *)&sum1;
+    printf("%d %d %d %d\n", *p1, *(p1 + 1), *(p1 + 2), *(p1 + 3));
+
+    printf("====================================\n");
+
     return 0;
 }
