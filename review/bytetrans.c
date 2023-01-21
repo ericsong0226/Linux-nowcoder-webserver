@@ -37,5 +37,12 @@ int main () {
 
     printf("====================================\n");
 
+    // ntohs
+    unsigned short a1 = 0x0403;
+    printf("a1 = %x\n", a1);
+
+    unsigned short b1 = ntohs(a1);
+    printf("b1 = %x\n", b1);
+
     return 0;
 }
