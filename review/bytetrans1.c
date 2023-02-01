@@ -18,6 +18,7 @@ int main() {
 
     printf("===========================\n");
 
+<<<<<<< HEAD
     char buf[4] = {192, 168, 1, 100};
     int num = *(int *)buf;
     int sum = htonl(num);
@@ -28,5 +29,7 @@ int main() {
 
     printf("=============================\n");
     
+=======
+>>>>>>> c9c21422f127d71f667e0892df15bf52b10c5ba3
     return 0;
 }
