@@ -18,7 +18,6 @@ int main() {
 
     printf("===========================\n");
 
-<<<<<<< HEAD
     char buf[4] = {192, 168, 1, 100};
     int num = *(int *)buf;
     int sum = htonl(num);
@@ -29,7 +28,14 @@ int main() {
 
     printf("=============================\n");
     
-=======
->>>>>>> c9c21422f127d71f667e0892df15bf52b10c5ba3
+    // ntonl
+    unsigned char buf1[4] = {1, 1, 168, 192};
+    int num1 = *(int *)buf1;
+    int sum1 = ntohl(num1);
+    unsigned char * p1 = (unsigned char *)&sum1;
+    printf("%d %d %d %d\n", *p1, *(p1 + 1), *(p1 + 2), *(p1 + 3));
+
+    printf("=============================\n");
+    
     return 0;
 }
