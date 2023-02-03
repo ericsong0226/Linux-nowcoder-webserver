@@ -36,6 +36,13 @@ int main() {
     printf("%d %d %d %d\n", *p1, *(p1 + 1), *(p1 + 2), *(p1 + 3));
 
     printf("=============================\n");
+
+    // ntohs
+    unsigned short a1 = 0x0403;
+    printf("a1 = %x\n", a1);
+
+    unsigned short b1 = ntohs(a1);
+    printf("b1 = %x\n", b1);
     
     return 0;
 }
