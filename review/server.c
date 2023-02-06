@@ -71,10 +71,12 @@ int main() {
             break;
         }
 
-        char data[1024];
-        memset(data, 0, 1024);
-        printf("please enter send data : \n");
-        scanf("%s", data);
+      // char * data = "hello, i am server";
+       char * data = recvBuf;
+       // char data[1024];
+       // memset(data, 0, 1024);
+       //  printf("please enter send data : \n");
+       // scanf("%s", data);
 
         write(cfd, data, strlen(data));
     }
