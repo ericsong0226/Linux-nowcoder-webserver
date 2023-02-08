@@ -1,8 +1,8 @@
 /* ************************************************************************
-> File Name:     server.c
+> File Name:     server1.c
 > Author:        程序员Eric
 > 微信公众号:    源水本木
-> Created Time:  Sun 05 Feb 2023 02:28:09 PM CST
+> Created Time:  Tue 07 Feb 2023 09:44:32 PM CST
 > Description:   
  ************************************************************************/
 #include <stdio.h>
@@ -25,6 +25,7 @@ int main() {
     saddr.sin_addr.s_addr = INADDR_ANY;
     saddr.sin_port = htons(9999);
     int ret = bind(lfd, (struct sockaddr *)&saddr, sizeof(saddr));
+
     if (ret == -1) {
    
         perror("bind");
@@ -65,18 +66,15 @@ int main() {
         } else if (num > 0) {
        
             printf("recv client data : %s\n", recvBuf);
-        } else if (num == 0) {
+        } else if (num > 0) {
        
             printf("client closed...\n");
-            break;
         }
 
-      // char * data = "hello, i am server";
-       char * data = recvBuf;
-       // char data[1024];
-       // memset(data, 0, 1024);
-       //  printf("please enter send data : \n");
-       // scanf("%s", data);
+        char data[1024];
+        memset(data, 0, 1024);
+        printf("please enter send data: \n");
+        scanf("%s", data);
 
         write(cfd, data, strlen(data));
     }
