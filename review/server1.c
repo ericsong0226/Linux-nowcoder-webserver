@@ -66,7 +66,7 @@ int main() {
         } else if (num > 0) {
        
             printf("recv client data : %s\n", recvBuf);
-        } else if (num > 0) {
+        } else if (num = 0) {
        
             printf("client closed...\n");
         }
