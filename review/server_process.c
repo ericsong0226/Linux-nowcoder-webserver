@@ -48,5 +48,76 @@ int main() {
     }
 
     struct sockaddr_in saddr;
+    saddr.sin_family = AF_INET;
+    saddr.sin_port = htons(9999);
+    saddr.sin_addr.s_addr = INADDR_ANY;
 
+    int ret = bind(lfd, (struct sockaddr *)&saddr, sizeof(saddr));
+    if (ret == -1) {
+   
+        perror("bind");
+        exit(-1);
+    }
+
+    ret = listen(lfd, 128);
+    if (ret == -1) {
+   
+        perror("listen");
+        exit(-1);
+    }
+
+    while (1) {
+   
+        struct sockaddr_in cliaddr;
+        int len = sizeof(cliaddr);
+
+        int cfd = accept(lfd, (struct sockaddr *)&cliaddr, sizeof(cliaddr));
+        if (cfd == -1) {
+       
+            if (errno == EINTR) {
+           
+                continue;
+            }
+
+            perror("accept");
+            exit(-1);
+        }
+
+        pid_t pid = fork();
+        if (pid == 0) {
+       
+            char cliIp[16];
+            inet_ntop(AF_INET, &cliaddr.sin_addr.s_addr,cliIp, sizeof(cliIp));
+            unsigned short cliPort = ntohs(cliaddr.sin_port);
+            printf("client ip is %s, port is %d\n", cliIp, cliPort);
+
+            char recvBuf[1024];
+            while (1) {
+           
+                int len = read(cfd, &recvBuf, sizeof(recvBuf));
+
+                if (len == -1) {
+               
+                    perror("read");
+                    exit(-1);
+                } else if (len > 0) {
+               
+                    printf("recv client : %s\n", recvBuf);
+                } else if (len == 0) {
+               
+                    printf("client closed...\n");
+                    break;
+                }
+
+                write(cfd, recvBuf, strlen(recvBuf));
+            }
+
+            close(cfd);
+            exit(0);
+        }
+    }
+
+    close(lfd);
+
+    return 0;
 }
