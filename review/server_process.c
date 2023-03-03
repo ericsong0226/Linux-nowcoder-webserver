@@ -18,7 +18,7 @@ void recyleChild(int arg) {
 
     while (1) {
    
-        int ret = waitpid(-1, NULL, WHOHANG);
+        int ret = waitpid(-1, NULL, WNOHANG);
         if (ret == -1) {
        
             break;
@@ -38,7 +38,7 @@ int main() {
     act.sa_flags = 0;
     sigemptyset(&act.sa_mask);
     act.sa_handler = recyleChild;
-    sigaction(SIGCHILD, &act, NULL);
+    sigaction(SIGCHLD, &act, NULL);
 
     int lfd = socket(AF_INET, SOCK_STREAM, 0);
     if (lfd == -1) {
@@ -71,7 +71,7 @@ int main() {
         struct sockaddr_in cliaddr;
         int len = sizeof(cliaddr);
 
-        int cfd = accept(lfd, (struct sockaddr *)&cliaddr, sizeof(cliaddr));
+        int cfd = accept(lfd, (struct sockaddr *)&cliaddr, &len);
         if (cfd == -1) {
        
             if (errno == EINTR) {
