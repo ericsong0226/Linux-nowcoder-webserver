@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     saddr.sin_family = AF_INET;
     saddr.sin_addr.s_addr = INADDR_ANY;
     saddr.sin_port = htons(9999);
-    
+
     //int optval = 1;
     //setsockopt(lfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
 
