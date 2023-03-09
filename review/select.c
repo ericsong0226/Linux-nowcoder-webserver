@@ -54,7 +54,7 @@ int main() {
                 maxfd = maxfd > cfd ? maxfd : cfd;
             }
 
-            for (int i = lfd + 1; i <= maxfd; ++i) {
+            for (int i = lfd + 1; i <= maxfd; i++) {
            
                 if (FD_ISSET(i, &tmp)) {
                
