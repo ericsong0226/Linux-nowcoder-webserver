@@ -13,5 +13,12 @@
 
 int main() {
 
+    int fd = socket(PF_INET, SOCK_STREAM, 0);
+    if (fd == -1) {
+   
+        perror("socket");
+        return -1;
+    }
+    
     return 0;
 }
