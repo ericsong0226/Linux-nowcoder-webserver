@@ -19,6 +19,13 @@ int main() {
         perror("socket");
         return -1;
     }
+
+    struct sockaddr_in seraddr;
+    inet_pton(AF_INET, "127.0.0.1", &seraddr.sin_addr.s_addr);
+    seraddr.sin_family = AF_INET;
+    seraddr.sin_port = htons(9999);
+
+    int ret = connect(fd, (struct sockaddr *)&seraddr, sizeof(seraddr));
     
     return 0;
 }
