@@ -26,6 +26,36 @@ int main() {
     seraddr.sin_port = htons(9999);
 
     int ret = connect(fd, (struct sockaddr *)&seraddr, sizeof(seraddr));
+    if (ret == -1) {
+   
+        perror("connect");
+        return -1;
+    }
+
+    int num = 0;
+    while (1) {
+   
+        char sendBuf[1024] = {0};
+        fgets(sendBuf, sizeof(sendBuf), stdin);
+
+        write(fd, sendBuf, strlen(sendBuf) + 1);
+
+        int len = read(fd, sendBuf, sizeof(sendBuf));
+        if (len == -1) {
+       
+            perror("read");
+            return -1;
+        } else if (len > 0) {
+       
+            printf("read buf = %s\n", sendBuf);
+        } else {
+       
+            printf("server is closed...\n");
+            break;
+        }
+    }
     
+    close(fd);
+
     return 0;
 }
