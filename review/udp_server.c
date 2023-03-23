@@ -54,9 +54,8 @@ int main() {
         printf("client say : %s\n", recvbuf);
 
         sendto(fd, recvbuf, strlen(recvbuf) + 1, 0, (struct sockaddr *)&cliaddr, sizeof(cliaddr));
-
+    }
         close(fd);
 
         return 0;
-    }
 }
