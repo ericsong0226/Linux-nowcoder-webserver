@@ -14,8 +14,7 @@
 int main() {
 
     int fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (fd == -1) {
-   
+    if (fd == -1) {   
         perror("socket");
         exit(-1);
     }
@@ -26,15 +25,13 @@ int main() {
     serveraddr.sin_port = htons(9999);
     int ret = connect(fd, (struct sockaddr *)&serveraddr, sizeof(serveraddr));
 
-    if (ret == -1) {
-    
+    if (ret == -1) { 
         perror("connect");
         exit(-1);
     }
 
     char recvBuf[1024] = {0};
-    while (1) {
-   
+    while (1) { 
         char * data = "hello, i am client";
         write(fd, data, strlen(data));
 
@@ -46,11 +43,9 @@ int main() {
        
             perror("read");
             exit(-1);
-        } else if (len > 0) {
-       
+        } else if (len > 0) { 
             printf("recv server data : %s\n", recvBuf);
-        } else if (len == 0) {
-       
+        } else if (len == 0) {     
             printf("server closed...\n");
             break;
         }
