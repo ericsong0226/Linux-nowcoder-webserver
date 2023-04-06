@@ -76,3 +76,18 @@ threadpool<T>::~threadpool() {
     delete[] m_threads;
     m_stop = true;
 }
+
+template<typename T>
+bool threadpool<T>::append(T * request) {
+    m_queuelocker.lock();
+    if (m_workqueue.size() > m_max_requests) {
+        m_queuelocker.unlock();
+        return false;
+    }
+
+    m_workqueue.push_back(request);
+    m_queuelocker.unlock();
+    m_queuestat.post();
+
+    return true;
+}
