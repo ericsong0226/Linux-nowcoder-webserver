@@ -91,3 +91,36 @@ bool threadpool<T>::append(T * request) {
 
     return true;
 }
+
+
+template<typename T>
+void* threadpool<T>::worker(void * arg) {
+    threadpool * pool = (threadpool *)arg;
+    pool->run();
+    return pool;
+}
+
+
+template<typename T>
+void threadpool<T>::run() {
+    while (!m_stop) {
+        m_queuestat.wait();
+        m_queuelocker.lock();
+        if (m_workqueue.empty()) {
+            m_queuelocker.unlock();
+            continue;
+        }
+
+        T* request = m_workqueue.front();
+        m_workqueue.pop_front();
+        m_queuelocker.unlock();
+
+        if (!request) {
+            continue;
+        }
+
+        request->process();
+    }
+}
+
+#endif
