@@ -55,4 +55,9 @@ int main(int argc, char* argv[]) {
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_family = AF_INET;
     address.sin_port = htons(port);
+
+    int reuse = 1;
+    setsocket(listenfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+    ret = bind(listenfd, (struct sockaddr*)&address, sizeof(address));
+    ret = listen(listenfd, 5);
 }
