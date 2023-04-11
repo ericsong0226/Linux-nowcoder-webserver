@@ -60,4 +60,10 @@ int main(int argc, char* argv[]) {
     setsocket(listenfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
     ret = bind(listenfd, (struct sockaddr*)&address, sizeof(address));
     ret = listen(listenfd, 5);
+
+    epoll_event events[MAX_EVENT_NUMBER];
+    int epollfd = epoll_create(5);
+
+    addfd(epollfd, listen, false);
+    http_conn::m_epollfd = epollfd;
 }
