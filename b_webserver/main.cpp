@@ -66,4 +66,13 @@ int main(int argc, char* argv[]) {
 
     addfd(epollfd, listen, false);
     http_conn::m_epollfd = epollfd;
+
+    while (true) {
+        int number = epoll_wait(epollfd, events, MAX_EVENT_NUMBER, -1);
+
+        if ((number < 0) && (errno != EINTR)) {
+            printf("epoll failure\n");
+            break;
+        }
+    }
 }
