@@ -54,8 +54,7 @@ int main(int argc, char* argv[]) {
     struct sockaddr_in address;
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_family = AF_INET;
-    address.sin_port = htons(port);
-
+    address.sin_port = htons(port); 
     int reuse = 1;
     setsocket(listenfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
     ret = bind(listenfd, (struct sockaddr*)&address, sizeof(address));
@@ -74,5 +73,45 @@ int main(int argc, char* argv[]) {
             printf("epoll failure\n");
             break;
         }
+
+        for (int i = 0; i < number; ++i) {
+            int sockfd = events[i].data.fd;
+
+            if (sockfd == listenfd) {
+                struct sockaddr_in client_address;
+                socklen_t client_addrlength = sizeof(client_address);
+                int connfd = accept(listenfd, (struct sockaddr *)&client_address, &client_addrlength);
+
+                if (connfd < 0) {
+                    printf("errno is : %d\n", errno);
+                    continue;
+                }
+
+                if (http_conn::m_user_count >= MAX_FD) {
+                    close(connfd);
+                    continue;
+                }
+                users[connfd].init(connfd, client_address);
+            } else if (events[i].event & (EPOLLRDHUP | EPOLLHUP | EPOLLERR)) {
+                user[sockfd].close_conn();
+            } else if (events[i].events & EPOLLIN) {
+                if (users[sockfd].read()) {
+                    pool->append(users + sockfd);
+                } else {
+                    users[sockfd].close_conn();
+                }
+            } else if (events[i].events & EPOLLOUT) {
+                if (!users[sockfd].write()) {
+                    users[sockfd].close_conn();
+                }
+            }
+        }
     }
+
+    close(epollfd);
+    close(listenfd);
+    delete [] users;
+    delete pool;
+
+    return 0;
 }
