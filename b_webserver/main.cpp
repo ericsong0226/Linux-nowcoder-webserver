@@ -22,6 +22,10 @@
 #define MAX_FD 65536
 #define MAX_EVENT_NUMBER 10000
 
+extern void addfd(int epollfd, int fd, bool one_shot);
+extern void removefd(int epollfd, int fd);
+extern void modfd(int epollfd, int fd, int ev);
+
 void addsig(int sig, void(handler)(int)) {
     struct sigaction sa;
     memset(&sa, '\0', sizeof(sa));
