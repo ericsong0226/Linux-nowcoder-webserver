@@ -31,3 +31,15 @@ void modfd(int epollfd, int fd, int ev) {
     event.events = ev | EPOLLET | EPOLLONESHOT | EPOLLRDHUP;
     epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &event);
 }
+
+int http_conn::m_user_count = 0;
+
+int http_conn::m_epollfd = 1;
+
+void http_conn::close_conn() {
+    if (m_sockfd != -1) {
+        removefd(m_epollfd, m_sockfd);
+        m_sockfd = -1;
+        m_user_count--;
+    }
+}
