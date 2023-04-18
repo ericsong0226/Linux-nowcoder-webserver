@@ -30,6 +30,13 @@
 
 class http_conn {
 public:
+    static int m_epollfd;
+    static int m_user_count;
+
     http_conn() {}
     ~http_conn() {}
+
+private:
+    int m_sockfd;
+    sockaddr_in m_address;
 }
