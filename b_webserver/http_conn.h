@@ -39,4 +39,7 @@ public:
 private:
     int m_sockfd;
     sockaddr_in m_address;
+
+private:
+    void init();
 }
