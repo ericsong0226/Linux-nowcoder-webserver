@@ -36,6 +36,9 @@ public:
     http_conn() {}
     ~http_conn() {}
 
+    void init(int sockfd, const sockaddr_in& addr);
+    void process();
+
 private:
     int m_sockfd;
     sockaddr_in m_address;
