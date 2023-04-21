@@ -43,3 +43,16 @@ void http_conn::close_conn() {
         m_user_count--;
     }
 }
+
+void http_conn::init(int sockfd, const sockaddr_in & addr) {
+    m_sockfd = sockfd;
+    m_address = addr;
+
+    int reuse = 1;
+    setsockopt(m_sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+
+    addfd(m_epollfd, sockfd, true);
+    m_user_count++;
+
+    init();
+}
