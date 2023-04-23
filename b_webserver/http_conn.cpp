@@ -83,8 +83,17 @@ void http_conn::init() {
 }
 
 void http_conn::read() {
-    printf("read data");
+    printf("read data\n");
 
     return true;
 }
-<video src='1.mp4' controls='controls' width='640' height='320' autoplay='autoplay'> Your browser does not support the video tag.</video></div>
+
+void http_conn::write() {
+    printf("write data\n");
+
+    return true;
+}
+
+void http_conn::process() {
+    printf("parse request, create response\n");
+}
