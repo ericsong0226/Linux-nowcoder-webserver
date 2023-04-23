@@ -7,6 +7,13 @@
  ************************************************************************/
 #include "http_conn.h"
 
+int setnonblocking(int fd) {
+    int old_flag = fcntl(fd, F_GETFL);
+    int new_flag = old_flag | O_NONBLOCK;
+    fcntl(fd, F_SETFL, new_flag);
+    return old_flag;
+}
+
 void addfd(int epollfd, int fd, bool one_shot) {
     epoll_event event;
     event.data.fd = fd;
