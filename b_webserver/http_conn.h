@@ -37,7 +37,10 @@ public:
     ~http_conn() {}
 
     void init(int sockfd, const sockaddr_in& addr);
+    bool read();
+    bool write();
     void process();
+    void close_conn();
 
 private:
     int m_sockfd;
@@ -45,4 +48,7 @@ private:
 
 private:
     void init();
-}
+};
+
+
+#endif

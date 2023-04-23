@@ -60,14 +60,14 @@ int main(int argc, char* argv[]) {
     address.sin_family = AF_INET;
     address.sin_port = htons(port); 
     int reuse = 1;
-    setsocket(listenfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+    setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
     ret = bind(listenfd, (struct sockaddr*)&address, sizeof(address));
     ret = listen(listenfd, 5);
 
     epoll_event events[MAX_EVENT_NUMBER];
     int epollfd = epoll_create(5);
 
-    addfd(epollfd, listen, false);
+    addfd(epollfd, listenfd, false);
     http_conn::m_epollfd = epollfd;
 
     while (true) {
@@ -95,9 +95,9 @@ int main(int argc, char* argv[]) {
                     close(connfd);
                     continue;
                 }
-                users[connfd].init(connfd, client_address);
-            } else if (events[i].event & (EPOLLRDHUP | EPOLLHUP | EPOLLERR)) {
-                user[sockfd].close_conn();
+                // users[connfd].init(connfd, client_address);
+            } else if (events[i].events & (EPOLLRDHUP | EPOLLHUP | EPOLLERR)) {
+                users[sockfd].close_conn();
             } else if (events[i].events & EPOLLIN) {
                 if (users[sockfd].read()) {
                     pool->append(users + sockfd);

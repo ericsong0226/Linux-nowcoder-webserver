@@ -15,7 +15,7 @@
 #include "locker.h"
 
 template<typename T>
-clase threadpool {
+class threadpool {
 public:
     threadpool(int thread_number = 8, int max_requests = 10000);
     ~threadpool();

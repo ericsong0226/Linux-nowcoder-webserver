@@ -51,44 +51,13 @@ void http_conn::close_conn() {
     }
 }
 
-void http_conn::init(int sockfd, const sockaddr_in & addr) {
-    m_sockfd = sockfd;
-    m_address = addr;
-
-    int reuse = 1;
-    setsockopt(m_sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
-
-    addfd(m_epollfd, sockfd, true);
-    m_user_count++;
-
-    init();
-}
-
-void http_conn::init() {
-    m_check_status = CHECK_STATE_REQUESTLINE;
-    m_linger = false;
-
-    m_method = GET;
-    m_url = 0;
-    m_version = 0;
-    m_content_length = 0;
-    m_host = 0;
-    m_start_line = 0;
-    m_checked_idx = 0;
-    m_read_idx = 0;
-    m_write_idx = 0;
-    bzero(m_read_buf, READ_BUFFER_SIZE);
-    bzero(m_write_idx, READ_BUFFER_SIZE);
-    bzero(m_read_file, FILENAME_LEN);
-}
-
-void http_conn::read() {
+bool http_conn::read() {
     printf("read data\n");
 
     return true;
 }
 
-void http_conn::write() {
+bool http_conn::write() {
     printf("write data\n");
 
     return true;

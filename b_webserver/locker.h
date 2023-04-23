@@ -16,7 +16,7 @@ class locker {
 public:
     locker() {
         if (pthread_mutex_init(&m_mutex, NULL) != 0) {
-            throw std::execption();
+            throw std::exception();
         }
     }
 
@@ -44,7 +44,7 @@ class cond {
 public:
     cond() {
         if (pthread_cond_init(&m_cond, NULL) != 0) {
-            throw std::execption();
+            throw std::exception();
         }
     }
 
@@ -80,13 +80,13 @@ class sem {
 public:
     sem() {
         if (sem_init(&m_sem, 0, 0) != 0) {
-            throw std::execption();
+            throw std::exception();
         }
     }
 
     sem(int num) {
         if (sem_init(&m_sem, 0, num) != 0) {
-            throw std::execption();
+            throw std::exception();
         }
     }
 
