@@ -81,3 +81,10 @@ void http_conn::init() {
     bzero(m_write_idx, READ_BUFFER_SIZE);
     bzero(m_read_file, FILENAME_LEN);
 }
+
+void http_conn::read() {
+    printf("read data");
+
+    return true;
+}
+<video src='1.mp4' controls='controls' width='640' height='320' autoplay='autoplay'> Your browser does not support the video tag.</video></div>
