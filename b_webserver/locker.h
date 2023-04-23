@@ -9,7 +9,7 @@
 #define LOCKER_H
 
 #include <pthread.h>
-#include <execption>
+#include <exception>
 #include <semaphore.h>
 
 class locker {
