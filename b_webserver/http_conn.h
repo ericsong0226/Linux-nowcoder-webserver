@@ -32,6 +32,8 @@ class http_conn {
 public:
     static int m_epollfd;
     static int m_user_count;
+    static const int READ_BUFFER_SIZE = 2048;
+    static const int WRITE_BUFFER_SIZE = 1024;
 
     http_conn() {}
     ~http_conn() {}
