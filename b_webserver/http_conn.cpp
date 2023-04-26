@@ -52,8 +52,26 @@ void http_conn::close_conn() {
 }
 
 bool http_conn::read() {
-    printf("read data\n");
+//    printf("read data\n");
 
+    if (m_read_idx >= READ_BUFFER_SIZE) {
+        return false;
+    }
+
+    int bytes_read = 0;
+    while (true) {
+        bytes_read = recv(m_sockfd, m_read_buf + m_read_idx, READ_BUFFER_SIZE - m_read_idx, 0);
+        if (bytes_read == -1) {
+            if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                break;
+            }
+            return false;
+        } else if (bytes_read == 0) {
+            return false;
+        }
+        m_read_idx += bytes_read;
+    }
+    
     return true;
 }
 

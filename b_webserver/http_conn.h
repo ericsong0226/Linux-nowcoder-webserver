@@ -51,6 +51,9 @@ private:
 
 private:
     void init();
+
+    char m_read_buf[READ_BUFFER_SIZE];
+    int m_read_idx;
 };
 
 
