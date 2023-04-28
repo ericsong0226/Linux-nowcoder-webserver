@@ -82,5 +82,10 @@ bool http_conn::write() {
 }
 
 void http_conn::process() {
-    printf("parse request, create response\n");
+//    printf("parse request, create response\n");
+    HTTP_CODE read_ret = process_read();
+    if (read_ret = NO_REQUEST) {
+        modfd(m_epollfd, m_sockfd, EPOLLIN);
+        return;
+    }
 }

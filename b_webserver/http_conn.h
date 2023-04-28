@@ -71,7 +71,7 @@ public:
     bool write();
     void process();
     void close_conn();
-
+    HTTP_CODE process_read();
     
 private:
     int m_sockfd;
