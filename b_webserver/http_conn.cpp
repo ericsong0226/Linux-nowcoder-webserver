@@ -75,6 +75,27 @@ bool http_conn::read() {
     return true;
 }
 
+http_conn::LINE_STATUS http_conn::parse_line() {
+
+    return LINE_OPEN;
+}
+
+http_conn::HTTP_CODE http_conn::parse_request_line(char * text) {
+    return NO_REQUEST;
+}
+
+http_conn::HTTP_CODE http_conn::parse_headers(char * text) {
+    return NO_REQUEST;
+}
+
+http_conn::HTTP_CODE http_conn::process_read() {
+    return NO_REQUEST;
+}
+
+http_conn::HTTP_CODE http_conn::do_request() {
+    return FILE_REQUEST;
+}
+
 bool http_conn::write() {
     printf("write data\n");
 

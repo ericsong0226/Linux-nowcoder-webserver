@@ -72,6 +72,11 @@ public:
     void process();
     void close_conn();
     HTTP_CODE process_read();
+
+    HTTP_CODE parse_request_line(char* text);
+    HTTP_CODE parse_headers(char* text);
+    HTTP_CODE parse_content(char* text);
+    HTTP_CODE do_request();
     
 private:
     int m_sockfd;
