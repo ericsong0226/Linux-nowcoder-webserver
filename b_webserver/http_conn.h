@@ -90,9 +90,12 @@ private:
 
     int m_checked_index;
     int m_start_line;
+<<<<<<< HEAD
 
     CHECK_STATE m_check_state;
     
+=======
+>>>>>>> e2d97df0f773fbeb94e3003c1e419db3c34fe52d
 };
 
 
