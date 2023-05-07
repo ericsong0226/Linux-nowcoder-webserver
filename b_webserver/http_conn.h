@@ -87,6 +87,12 @@ private:
 
     char m_read_buf[READ_BUFFER_SIZE];
     int m_read_idx;
+
+    int m_checked_index;
+    int m_start_line;
+
+    CHECK_STATE m_check_state;
+    
 };
 
 
