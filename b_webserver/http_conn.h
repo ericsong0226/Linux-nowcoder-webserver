@@ -34,6 +34,12 @@ public:
     static const int READ_BUFFER_SIZE = 2048;
     static const int WRITE_BUFFER_SIZE = 1024;
     
+<<<<<<< HEAD
+=======
+    static int m_epollfd;
+    static int m_user_count;
+
+>>>>>>> 44366e6ffb9dc7508d635753448ee9d1ec1e076d
     // HTTP请求方法，这里只支持GET
     enum METHOD {GET = 0, POST, HEAD, PUT, DELETE, TRACE, OPTIONS, CONNECT};
     
