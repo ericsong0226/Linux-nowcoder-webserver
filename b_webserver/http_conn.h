@@ -30,10 +30,12 @@
 
 class http_conn {
 public:
-    static int m_epollfd;
-    static int m_user_count;
+    static const int FILENAME_LEN = 200;
     static const int READ_BUFFER_SIZE = 2048;
     static const int WRITE_BUFFER_SIZE = 1024;
+    
+    static int m_epollfd;
+    static int m_user_count;
 
     // HTTP请求方法，这里只支持GET
     enum METHOD {GET = 0, POST, HEAD, PUT, DELETE, TRACE, OPTIONS, CONNECT};
