@@ -34,9 +34,6 @@ public:
     static const int READ_BUFFER_SIZE = 2048;
     static const int WRITE_BUFFER_SIZE = 1024;
     
-    static int m_epollfd;
-    static int m_user_count;
-
     // HTTP请求方法，这里只支持GET
     enum METHOD {GET = 0, POST, HEAD, PUT, DELETE, TRACE, OPTIONS, CONNECT};
     
@@ -65,15 +62,19 @@ public:
     // 1.读取到一个完整的行 2.行出错 3.行数据尚且不完整
     enum LINE_STATUS { LINE_OK = 0, LINE_BAD, LINE_OPEN };
 
+public:
     http_conn() {}
     ~http_conn() {}
-
+public:
     void init(int sockfd, const sockaddr_in& addr);
     bool read();
     bool write();
     void process();
     void close_conn();
+private:
+    void init();
     HTTP_CODE process_read();
+    bool process_write(HTTP_CODE ret);
 
     HTTP_CODE parse_request_line(char* text);
     HTTP_CODE parse_headers(char* text);
