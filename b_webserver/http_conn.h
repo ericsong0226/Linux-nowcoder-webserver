@@ -111,6 +111,19 @@ private:
     CHECK_STATE m_check_state;
     METHOD m_method;
  
+    char m_real_file[FILENAME_LEN];
+    char* m_url;
+    char* m_version;
+    char* m_host;
+    int m_content_length;
+    bool m_linger;
+
+    char m_write_buf[WRITE_BUFFER_SIZE];
+    int m_write_idx;
+    char* m_file_address;
+    struct stat m_file_stat;
+    struct iovec m_iv[2];
+    int m_iv_count;
 };
 
 
