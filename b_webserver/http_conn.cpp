@@ -7,6 +7,8 @@
  ************************************************************************/
 #include "http_conn.h"
 
+const char* doc_root = "/home/song/linux/webserver/resources/";
+
 int setnonblocking(int fd) {
     int old_flag = fcntl(fd, F_GETFL);
     int new_flag = old_flag | O_NONBLOCK;
