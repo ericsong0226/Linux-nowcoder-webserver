@@ -63,6 +63,19 @@ void http_conn::close_conn() {
     }
 }
 
+void http_conn::init(int sockfd, const sockaddr_in &addr) {
+    m_sockfd = sockfd;
+    m_address = addr;
+
+    int reuse = 1;
+    setsockopt(m_sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+
+    addfd(m_epollfd, sockfd, true);
+    m_user_count++;
+
+    init();
+}
+
 bool http_conn::read() {
 //    printf("read data\n");
 
