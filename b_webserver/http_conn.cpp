@@ -76,6 +76,13 @@ void http_conn::init(int sockfd, const sockaddr_in &addr) {
     init();
 }
 
+void http_conn::init() {
+    m_check_state = CHECK_STATE_REQUESTLINE;
+    m_linger = false;
+
+    m_method = GET;
+}
+
 bool http_conn::read() {
 //    printf("read data\n");
 
