@@ -120,6 +120,8 @@ bool http_conn::read() {
 
 http_conn::LINE_STATUS http_conn::parse_line() {
 
+    char temp;
+
     return LINE_OPEN;
 }
 
