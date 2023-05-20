@@ -121,6 +121,19 @@ bool http_conn::read() {
 http_conn::LINE_STATUS http_conn::parse_line() {
 
     char temp;
+    for (; m_checked_idx < m_read_idx; ++m_check_idx) {
+        temp = m_read_buf[m_checked_idx];
+        if (temp == '\r') {
+            if ((m_checked_idx + 1) == m_read_idx) {
+                return LINE_OPEN;
+            } else if (m_read_buf[m_checked_idx + 1] == '\n') {
+                m_read_buf[m_checked_idx++] = '\0'; 
+                m_read_buf[m_checked_idx++] = '\0';
+                return LINE_OK;
+            }
+            return LINE_BAD;
+        }
+    }
 
     return LINE_OPEN;
 }
