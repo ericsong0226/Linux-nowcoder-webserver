@@ -132,6 +132,13 @@ http_conn::LINE_STATUS http_conn::parse_line() {
                 return LINE_OK;
             }
             return LINE_BAD;
+        } else if (temp == '\n') {
+            if ((m_checked_idx > 1) && (m_read_buf[m_checked_idx-1] == '\r')) {
+                m_read_buf[m_checked_idx-1] = '\0';
+                m_read_buf[m_checked_idx++] = '\0';
+                return LINE_OK;
+            }
+            return LINE_BAD;
         }
     }
 
