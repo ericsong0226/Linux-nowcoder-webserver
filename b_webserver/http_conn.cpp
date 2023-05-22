@@ -146,6 +146,12 @@ http_conn::LINE_STATUS http_conn::parse_line() {
 }
 
 http_conn::HTTP_CODE http_conn::parse_request_line(char * text) {
+
+    m_url = strpbrk(text, " \t");
+    if (!m_url) {
+        return BAD_REQUEST;
+    }
+    
     return NO_REQUEST;
 }
 
