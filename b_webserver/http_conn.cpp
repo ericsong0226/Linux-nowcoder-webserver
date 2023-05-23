@@ -151,6 +151,14 @@ http_conn::HTTP_CODE http_conn::parse_request_line(char * text) {
     if (!m_url) {
         return BAD_REQUEST;
     }
+
+    *m_url++ = '\0';
+    char * method = text;
+    if (strcasecmp(method, "GET") == 0) {
+        m_method = GET;
+    } else {
+        return BAD_REQUEST;
+    }
     
     return NO_REQUEST;
 }
