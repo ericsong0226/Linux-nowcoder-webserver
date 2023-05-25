@@ -168,6 +168,11 @@ http_conn::HTTP_CODE http_conn::parse_request_line(char * text) {
     if (strcasecmp(m_version, "HTTP/1.1") != 0) {
         return BAD_REQUEST;
     }
+
+    if (strncasecmp(m_url, "http://", 7) == 0) {
+        m_url += 7;
+        m_url = strchr(m_url, '/');
+    }
     
     return NO_REQUEST;
 }
