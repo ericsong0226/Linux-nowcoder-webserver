@@ -173,6 +173,12 @@ http_conn::HTTP_CODE http_conn::parse_request_line(char * text) {
         m_url += 7;
         m_url = strchr(m_url, '/');
     }
+
+    if (!m_url || m_url[0] != '/') {
+        return BAD_REQUEST;
+    }
+
+    m_check_state = CHECK_STATE_HEADER;
     
     return NO_REQUEST;
 }
