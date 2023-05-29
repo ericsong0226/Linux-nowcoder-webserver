@@ -184,6 +184,16 @@ http_conn::HTTP_CODE http_conn::parse_request_line(char * text) {
 }
 
 http_conn::HTTP_CODE http_conn::parse_headers(char * text) {
+
+    if (text[0] == '\0') {
+        if (m_content_length != 0) {
+            m_check_state = CHECK_STATE_CONTENT;
+            return NO_REQUEST;
+        }
+
+        return GET_REQUEST;
+    }
+
     return NO_REQUEST;
 }
 
