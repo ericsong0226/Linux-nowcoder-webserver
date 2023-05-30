@@ -192,6 +192,12 @@ http_conn::HTTP_CODE http_conn::parse_headers(char * text) {
         }
 
         return GET_REQUEST;
+    } else if (strncasecmp(text, "Connection:", 11) == 0) {
+        text += 11;
+        text += strspn(text, " \t");
+        if (strcasecmp(text, "keep-alive") == 0) {
+            m_linger = true;
+        }
     }
 
     return NO_REQUEST;
