@@ -198,6 +198,10 @@ http_conn::HTTP_CODE http_conn::parse_headers(char * text) {
         if (strcasecmp(text, "keep-alive") == 0) {
             m_linger = true;
         }
+    } else if (strncasecmp(text, "Content-Length:", 15) == 0) {
+        text += 15;
+        text += strspn(text, " \t");
+        m_content_length = atol(text);
     }
 
     return NO_REQUEST;
