@@ -202,6 +202,12 @@ http_conn::HTTP_CODE http_conn::parse_headers(char * text) {
         text += 15;
         text += strspn(text, " \t");
         m_content_length = atol(text);
+    } else if (strncasecmp(text, "Host:", 5) == 0) {
+        text += 5;
+        text += strspn(text, " \t");
+        m_host = text;
+    } else {
+        printf("oop! unknow header %s\n", text);
     }
 
     return NO_REQUEST;
