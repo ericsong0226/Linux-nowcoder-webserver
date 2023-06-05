@@ -223,6 +223,11 @@ http_conn::HTTP_CODE http_conn::parse_content(char * text) {
 }
 
 http_conn::HTTP_CODE http_conn::process_read() {
+    LINE_STATUS line_status = LINE_OK;
+    HTTP_CODE ret = NO_REQUEST;
+
+    char * text = 0;
+    
     return NO_REQUEST;
 }
 
