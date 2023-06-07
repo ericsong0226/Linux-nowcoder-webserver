@@ -235,6 +235,17 @@ http_conn::HTTP_CODE http_conn::process_read() {
 
                 m_start_line = m_checked_idx;
                 printf("got 1 http line : %s\n", text);
+
+                switch(m_check_state) {
+                    case CHECK_STATE_REQUESTLINE:
+                    {
+                        ret = parse_request_line(text);
+                        if (ret == BAD_REQUEST) {
+                            return BAD_REQUEST;
+                        }
+                        break;
+                    }
+                }
             }
     
     return NO_REQUEST;
