@@ -245,6 +245,17 @@ http_conn::HTTP_CODE http_conn::process_read() {
                         }
                         break;
                     }
+
+                    case CHECK_STATE_HEADER:
+                    {
+                        ret = parse_header(text);
+                        if (ret == BAD_REQUEST) {
+                            return BAD_REQUEST;
+                        } else if (ret == GET_REQUEST) {
+                            return do_request();
+                        }
+                        break;
+                    }
                 }
             }
     
