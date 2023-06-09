@@ -256,6 +256,21 @@ http_conn::HTTP_CODE http_conn::process_read() {
                         }
                         break;
                     }
+
+                    case CHECK_STATE_CONTENT:
+                    {
+                        ret = parse_content(text);
+                        if (ret == GET_REQUEST) {
+                            return do_request();
+                        }
+                        line_status = LINE_OPEN;
+                        break;
+                    }
+
+                    default:
+                    {
+                        return INTERNAL_ERROR;
+                    }
                 }
             }
     
