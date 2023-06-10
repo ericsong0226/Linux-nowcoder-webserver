@@ -278,6 +278,10 @@ http_conn::HTTP_CODE http_conn::process_read() {
 }
 
 http_conn::HTTP_CODE http_conn::do_request() {
+    
+    strcpy(m_real_file, doc_root);
+    int len = strlen(doc_root);
+
     return FILE_REQUEST;
 }
 
