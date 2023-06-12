@@ -286,6 +286,10 @@ http_conn::HTTP_CODE http_conn::do_request() {
         return NO_RESOURCE;
     }
 
+    if (!(m_file_stat.st_mode & S_IROTH)) {
+        return FORBIDDEN_REQUEST;
+    }
+
     return FILE_REQUEST;
 }
 
