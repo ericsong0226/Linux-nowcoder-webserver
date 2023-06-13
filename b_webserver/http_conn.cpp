@@ -290,6 +290,12 @@ http_conn::HTTP_CODE http_conn::do_request() {
         return FORBIDDEN_REQUEST;
     }
 
+    if (S_ISDIR(m_file_stat.st_mode)) {
+        return BAD_REQUEST;
+    }
+
+    int fd = open(m_read_file, O_RDONLY);
+
     return FILE_REQUEST;
 }
 
