@@ -310,9 +310,41 @@ void http_conn::unmap() {
 }
 
 bool http_conn::write() {
-    printf("write data\n");
+//    printf("write data\n");
+    int temp = 0;
+    int bytes_have_send = 0;
+    int bytes_to_send = m_write_idx;
 
-    return true;
+    if (bytes_to_send == 0) {
+        modfd(m_epollfd, m_sockfd, EPOLLIN);
+        init();
+        return true;
+    }
+
+    while (1) {
+        temp = writev(m_sockfd, m_iv, m_iv_count);
+        if (temp <= -1) {
+            if (errno == EAGAIN) {
+                modfd(m_epollfd, m_sockfd, EPOLLOUT);
+                return true;
+            }
+            unmap();
+            return false;
+        }
+        bytes_to_send -= temp;
+        bytes_have_send += temp;
+        if (bytes_to_send <= bytes_have_send) {
+            unmap();
+            if (m_linger) {
+                init();
+                modfd(m_epollfd, m_sockfd, EPOLLIN);
+                return true;
+            } else {
+                modfd(m_epollfd, m_sockfd, EPOLLIN);
+                return false;
+            }
+        }
+    }
 }
 
 void http_conn::process() {
@@ -323,3 +355,5 @@ void http_conn::process() {
         return;
     }
 }
+
+
