@@ -347,6 +347,15 @@ bool http_conn::write() {
     }
 }
 
+bool http_conn::add_response(const char* format, ...) {
+    if (m_write_idx >= WRITE_BUFFER_SIZE) {
+        return false;
+    }
+
+    va_list arg_list;
+    va_start(arg_list, format);
+}
+
 void http_conn::process() {
 //    printf("parse request, create response\n");
     HTTP_CODE read_ret = process_read();
