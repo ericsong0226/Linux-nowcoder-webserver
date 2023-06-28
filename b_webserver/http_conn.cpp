@@ -354,6 +354,13 @@ bool http_conn::add_response(const char* format, ...) {
 
     va_list arg_list;
     va_start(arg_list, format);
+    int len = vsnprintf(m_write_buf + m_write_idx, WRITE_BUFFER_SIZE - 1 - m_write_idx, format, arg_list);
+    if (len >= (WRITE_BUFFER_SIZE - 1 - m_write_idx)) {
+        return false;
+    }
+    m_write_idx += len;
+    va_end(arg_list);
+    return true;
 }
 
 void http_conn::process() {
