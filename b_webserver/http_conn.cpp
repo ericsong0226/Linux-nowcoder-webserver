@@ -367,6 +367,10 @@ bool http_conn::add_status_line(int status, const char* title) {
     return add_response("%s %d %s\r\n", "HTTP/1.1", status, title);
 }
 
+bool http_conn::add_headers(int Content_len) {
+
+}
+
 void http_conn::process() {
 //    printf("parse request, create response\n");
     HTTP_CODE read_ret = process_read();
