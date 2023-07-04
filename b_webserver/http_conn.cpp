@@ -378,6 +378,10 @@ bool http_conn::add_content_length(int content_len) {
     return add_response("Content-Length : %d\r\n", content_len);
 }
 
+bool http_conn::add_linger() {
+    return add_response("Connection: %s\r\n", (m_linger == true) ? "keep-alive" : "close");
+}
+
 void http_conn::process() {
 //    printf("parse request, create response\n");
     HTTP_CODE read_ret = process_read();
