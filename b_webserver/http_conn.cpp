@@ -382,6 +382,10 @@ bool http_conn::add_linger() {
     return add_response("Connection: %s\r\n", (m_linger == true) ? "keep-alive" : "close");
 }
 
+bool http_conn::add_blank_line() {
+    return add_response("%s", "\r\n");
+}
+
 void http_conn::process() {
 //    printf("parse request, create response\n");
     HTTP_CODE read_ret = process_read();
