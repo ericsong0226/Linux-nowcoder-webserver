@@ -386,6 +386,10 @@ bool http_conn::add_blank_line() {
     return add_response("%s", "\r\n");
 }
 
+bool http_conn::add_content(const char* content) {
+    return add_response("%s", content);
+}
+
 void http_conn::process() {
 //    printf("parse request, create response\n");
     HTTP_CODE read_ret = process_read();
