@@ -269,7 +269,7 @@ http_conn::HTTP_CODE http_conn::process_read() {
                     {
                         ret = parse_request_line(text);
                         if (ret == BAD_REQUEST) {
-                            return BAD_REQUEST;
+                           return BAD_REQUEST;
                         }
                         break;
                     }

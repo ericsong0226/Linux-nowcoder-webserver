@@ -390,6 +390,10 @@ bool http_conn::add_content(const char* content) {
     return add_response("%s", content);
 }
 
+bool http_conn::add_content_type() {
+    return add_response("Content-Type:%s\r\n", "text/html");
+}
+
 void http_conn::process() {
 //    printf("parse request, create response\n");
     HTTP_CODE read_ret = process_read();
