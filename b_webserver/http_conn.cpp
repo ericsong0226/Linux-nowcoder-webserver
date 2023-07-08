@@ -402,6 +402,12 @@ void http_conn::process() {
         return;
     }
 
+    bool write_ret = processs_write(read_ret);
+    if (!write_ret) {
+        close_conn();
+    }
+    modfd(m_epollfd, m_sockfd, EPOLLOUT);
+
 
 }
 
