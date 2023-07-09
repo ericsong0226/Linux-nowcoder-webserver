@@ -394,6 +394,12 @@ bool http_conn::add_content_type() {
     return add_response("Content-Type:%s\r\n", "text/html");
 }
 
+bool http_conn::process_write(HTTP_CODE ret) {
+    switch (ret) {
+
+    }
+}
+
 void http_conn::process() {
 //    printf("parse request, create response\n");
     HTTP_CODE read_ret = process_read();
