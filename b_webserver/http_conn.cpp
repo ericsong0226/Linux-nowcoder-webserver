@@ -396,7 +396,13 @@ bool http_conn::add_content_type() {
 
 bool http_conn::process_write(HTTP_CODE ret) {
     switch (ret) {
-
+        case INTERNAL_ERROR:
+            add_status_line(500, error_500_title);
+            add_headers(strlen(error_500_form));
+            if (!add_content(error_500_form)) {
+                return false;
+            }
+            break;
     }
 }
 
