@@ -403,6 +403,13 @@ bool http_conn::process_write(HTTP_CODE ret) {
                 return false;
             }
             break;
+        case BAD_REQUEST:
+            add_status_line(400, error_400_title);
+            add_headers(strlen(error_400_form));
+            if (!add_content(error_400_form)) {
+                return false;
+            }
+            break;
     }
 }
 
