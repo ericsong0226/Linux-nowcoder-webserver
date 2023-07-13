@@ -417,6 +417,13 @@ bool http_conn::process_write(HTTP_CODE ret) {
                 return false;
             }
             break;
+        case FORBIDDEN_REQUEST:
+            add_status_line(403, error_403_title);
+            add_headers(strlen(error_403_form));
+            if (!add_content(error_403_form)) {
+                return false;
+            }
+            break;
     }
 }
 
